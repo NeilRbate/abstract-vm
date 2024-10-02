@@ -33,6 +33,17 @@ FileParse::FileParse(const std::string &filename) {
     }
 }
 
+/* Copy constructor */
+FileParse::FileParse(const FileParse &rhs) { *this = rhs; }
+
+/* Copy operator */
+FileParse &FileParse::operator=(const FileParse &rhs)
+{
+    this->_filename = rhs.getFilename();
+    this->_data = rhs.getData();
+    return *this;
+}
+
 /* Destructor */
 FileParse::~FileParse() {}
 

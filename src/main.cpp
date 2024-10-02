@@ -7,7 +7,6 @@ int main(int argc, char **argv) {
     if (argc == 1) {
         std::cout << "STDIN mode" << std::endl;
     } else if (argc == 2) {
-        std::cout << "File mode" << std::endl;
         FileParse file(argv[1]);
         std::cout << file;
     } else {
