@@ -2,7 +2,8 @@ GXX=g++
 FLAGS=-std=c++20 -Wall -Wextra -Werror -pedantic
 TARGET=abstarct_vm
 SRC=src/main.cpp \
-	src/FileParse/FileParse.cpp
+	src/FileParse/FileParse.cpp \
+	src/Operand/OperandFactory.cpp
 
 OBJ=${SRC:.cpp=.o}
 

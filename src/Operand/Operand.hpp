@@ -1,62 +1,54 @@
+#include "IOperand.hpp"
+#include "eOperandType.hpp"
+
 #pragma once
 
-#include <string>
-#include <array> 
-#include <memory>
-#include "IOperand.hpp"
-#include "eOperand.hpp"
-#include "ePrecision.hpp"
+template <typename T>
+class Operand : IOperand {
 
-class Operand : public IOperand {
+private:
 
-    private:
+    std::string _value;
+    eOperandType _type;
+    ePrecision _precision;
 
-        /* Methods */
-        IOperand const * createInt8( std::string const & value ) const;
-        IOperand const * createInt16( std::string const & value ) const;
-        IOperand const * createInt32( std::string const & value ) const;
-        IOperand const * createFloat( std::string const & value ) const;
-        IOperand const * createDouble( std::string const & value ) const;
+public:
 
-        /* Attributes */
-        std::string _value;
-        eOperandType _type;
-        int _precision;
+    Operand(std::string value, eOperandType type, ePrecision precision) {
+        _type = type;
+        _precision = precision;
+        _value = value;
+    };
 
-        /* Array of operand created function */
-        std::array<IOperand const *(Operand::*)(std::string const &) const, 5> _createOperand 
-        {
-            &Operand::createInt8,
-            &Operand::createInt16,
-            &Operand::createInt32,
-            &Operand::createFloat,
-            &Operand::createDouble
-        };
+    Operand(Operand const & rhs) { *this = rhs; };
 
-    public:
-        /* Coplien */
-        Operand() = delete;// No default constructor
-        Operand(const Operand &rhs);//copy constructor
-        Operand &operator=(const Operand &rhs);//copy assignment
-        ~Operand();//destructor
+    Operand & operator=(Operand const & rhs) {
+        _value = rhs.getValue();
+        _type = rhs.getType();
+        _precision = rhs.getPrecision();
+        return *this;
+    };
 
-        /* Constructor */
-        Operand(eOperandType type, const std::string &value);
+    ~Operand() {};
 
-        /* Override*/
-        int getPrecision( void ) const; // Precision of the type of the instance
-        eOperandType getType( void ) const; // Type of the instance
+    //Implemente interface
+    int getPrecision( void ) const { return _precision; };
+    eOperandType getType( void ) const { return _type; };
+    T getValue(void) const { return _value; };
 
-        IOperand const *Operand::compute(std::string const &value1, std::string const &value2, ePrecision type,eOperandType operandType); // Compute operator overload 
+    //Operators overload
+    IOperand const *operator+(IOperand const &rhs) const {
+        if (rhs.getPrecision > getPrecision()) {
+            this._
+        }
+    };
+    IOperand const *operator-(IOperand const &rhs) const;
+    IOperand const *operator*(IOperand const &rhs) const;
+    IOperand const *operator/(IOperand const &rhs) const;
+    IOperand const *operator%(IOperand const &rhs) const;
 
-        IOperand const * operator+( IOperand const & rhs ) const; // Sum
-        IOperand const * operator-( IOperand const & rhs ) const; // Difference
-        IOperand const * operator*( IOperand const & rhs ) const; // Product
-        IOperand const * operator/( IOperand const & rhs ) const; // Quotient
-        IOperand const * operator%( IOperand const & rhs ) const; // Modulo
 
-        std::string const &toString( void ) const; // String representation of the instance
+    std::string const &toString( void ) const { return std::to_string(_value); };
 
-        /* Factory */
-        IOperand const *createOperand( eOperandType type, std::string const & value ) const;
 };
+

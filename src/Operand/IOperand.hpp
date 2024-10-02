@@ -1,7 +1,7 @@
+#include <string>
+
 #pragma once
 
-#include <string>
-#include "eOperand.hpp"
 
 class IOperand {
 
