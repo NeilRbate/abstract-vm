@@ -14,9 +14,9 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    OperandFactory factory;
 
-    Int8 c(25, eOperandType::Int8, ePrecision::int8);
-    IOperand    *a = new Int8(25, eOperandType::Int8, ePrecision::int8);
+    auto a = factory.createOperand(eOperandType::Int8, "42");
 
     std::cout << "get precision -> "<< a->getPrecision() << std::endl;
     std::cout << "getValue -> "<< a->toString() << std::endl;

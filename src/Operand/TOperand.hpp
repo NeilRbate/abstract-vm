@@ -43,9 +43,11 @@ public:
     //Operator overload
     IOperand const *operator+(IOperand const &rhs) const {
 
-        IOperand    *ptr = rhs;
-        if (this->getType() > ptr.getType()) {
+        /*
+        //IOperand    *ptr = rhs;
+        if (this->getType() > ptr->getType()) {
         }
+        */
         return this;
     };
 
