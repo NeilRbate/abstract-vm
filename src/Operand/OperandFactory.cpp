@@ -31,7 +31,7 @@ OperandFactory::OperandFactory() {}
 OperandFactory::~OperandFactory(){}
 
 /* Factory */
-IOperand const *OperandFactory::createOperand(eOperandType type, std::string const &value) const
+IOperand const *OperandFactory::createOperand(eOperandType, std::string const &value) const
 {
-    return nullptr;
+    return this->_createOperand[type](value);
 }

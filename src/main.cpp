@@ -16,10 +16,10 @@ int main(int argc, char **argv) {
 
 
     Int8 c(25, eOperandType::Int8, ePrecision::int8);
-    IOperand    *a = new Int8(25, eOperandType::Int16, ePrecision::int8);
+    IOperand    *a = new Int8(25, eOperandType::Int8, ePrecision::int8);
 
     std::cout << "get precision -> "<< a->getPrecision() << std::endl;
-    //std::cout << "getValue -> "<< a->getValue() << std::endl;
+    std::cout << "getValue -> "<< a->toString() << std::endl;
     
 
     return 0;

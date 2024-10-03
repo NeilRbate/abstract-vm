@@ -1,6 +1,6 @@
 #include <array> 
-#include "IOperand.hpp"
-
+#include <memory>
+#include "Operand.cpp"
 
 #pragma once
 

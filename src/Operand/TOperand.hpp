@@ -1,8 +1,12 @@
 #include "IOperand.hpp"
-#include "eOperandType.hpp"
-#include "ePrecision.hpp"
+#include "OperandFactory.hpp"
+#include "eOperandType.h"
+#include "ePrecision.h"
 #include <typeinfo>
 #include <iostream>
+#include <limits>
+#include <memory>
+
 #pragma once
 
 template <typename T>
@@ -10,43 +14,48 @@ class TOperand : public IOperand {
 private:
 
     T _value;
+    std::string v;
     eOperandType _type;
     ePrecision _precision;
+    OperandFactory  factory;
 
 public:
 
-    TOperand() = delete;
+    /* CTOR */
+    TOperand() = delete; //default
 
-    TOperand<T>(T value, eOperandType type, ePrecision precision) : _value(value), _type(type), _precision(precision) {};
-
-    TOperand(TOperand const & rhs) {
-        //Copy operator
-    };
-
-    TOperand & operator=(TOperand const & rhs) {
-        //Assignement operator
-        return *this;
-    };
+    TOperand<T>(T value, eOperandType type, ePrecision precision) 
+    : _value(value), _type(type), _precision(precision), v(std::to_string(value)) {}; 
 
     ~TOperand(){};
 
-    //Implemente interface
+    /* Coplien */
+    TOperand(TOperand const & rhs) { *this = rhs; };
+
+    TOperand & operator=(TOperand const & rhs) { return factory.createOperand(rhs.getType, rhs.toString()); };
+
+
+    //Virtual method from IOperand implementation
     int getPrecision( void ) const { return _precision; } ;
     eOperandType getType( void ) const { return _type; };
-    T getValue(void) const { return _value; };
+    std::string const &toString( void ) const { return v; };
 
-    //Operators overload
+    //Operator overload
     IOperand const *operator+(IOperand const &rhs) const {
-            std::cout << "Hello\n";
+
+        IOperand    *ptr = rhs;
+        if (this->getType() > ptr.getType()) {
+        }
         return this;
     };
 
-    IOperand const *operator-(IOperand const &rhs) const{return this;};
-    IOperand const *operator*(IOperand const &rhs) const{return this;};
-    IOperand const *operator/(IOperand const &rhs) const{return this;};
-    IOperand const *operator%(IOperand const &rhs) const{return this;};
+    IOperand const *operator-(IOperand const &rhs) const{ return this; };
+    IOperand const *operator*(IOperand const &rhs) const{ return this; };
+    IOperand const *operator/(IOperand const &rhs) const{ return this; };
+    IOperand const *operator%(IOperand const &rhs) const{ return this; };
 
 
-    std::string const &toString( void ) const { return nullptr;};
+    /* Methods */
+
 };
 
