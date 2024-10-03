@@ -1,15 +1,11 @@
-#include <string>
 #include <array> 
-#include <memory>
 #include "IOperand.hpp"
-#include "eOperandType.hpp"
-#include "ePrecision.hpp"
 
 
 #pragma once
 
 
-class OperandFactory : public IOperand {
+class OperandFactory {
 
     private:
 
@@ -39,18 +35,5 @@ class OperandFactory : public IOperand {
         ~OperandFactory();//Destructor
 
 
-        /* Override*/
-        int getPrecision( void ) const = 0; // Precision of the type of the instance
-        eOperandType getType( void ) const = 0; // Type of the instance
-
-        IOperand const * operator+( IOperand const & rhs ) const = 0; // Sum
-        IOperand const * operator-( IOperand const & rhs ) const = 0; // Difference
-        IOperand const * operator*( IOperand const & rhs ) const = 0; // Product
-        IOperand const * operator/( IOperand const & rhs ) const = 0; // Quotient
-        IOperand const * operator%( IOperand const & rhs ) const = 0; // Modulo
-
-        std::string const &toString( void ) const = 0; // String representation of the instance
-
-        /* Factory */
         IOperand const *createOperand( eOperandType type, std::string const & value ) const;
 };
