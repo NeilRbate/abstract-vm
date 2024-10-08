@@ -32,6 +32,7 @@ OperandFactory::OperandFactory() {
     _createOperand[4] = &OperandFactory::createDouble;
 }
 
+/* DCTOR */
 OperandFactory::~OperandFactory(){}
 
 /* Factory */

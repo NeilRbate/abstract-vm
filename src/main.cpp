@@ -16,12 +16,25 @@ int main(int argc, char **argv) {
 
     OperandFactory factory;
 
-    std::unique_ptr<IOperand const> a(factory.createOperand(eOperandType::Int8, "42"));
-
-
-    std::cout << "getValue -> "<< a.get()->toString() << std::endl;
-    std::cout << "get precision -> "<< a.get()->getPrecision() << std::endl;
+    try
+    {
+        std::unique_ptr<IOperand const> a(factory.createOperand(eOperandType::Int8, "0"));
+        std::unique_ptr<IOperand const> b(factory.createOperand(eOperandType::Double, "3"));
+        std::unique_ptr<IOperand const> c (a.get()->operator%(*b.get()));
+        std::cout << "getValue -> "<< c->toString() << std::endl;
+        std::cout << "get precision -> "<< c->getPrecision() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     
 
+
+
+    //std::unique_ptr<IOperand const> c (a.get()->operator+(*b.get()));
+    //std::unique_ptr<IOperand const> c (a.get()->operator-(*b.get()));
+    //std::unique_ptr<IOperand const> c (a.get()->operator*(*b.get()));
+        
     return 0;
 }

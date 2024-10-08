@@ -25,6 +25,8 @@ class OperandFactory {
         OperandFactory();//Default constructor
         OperandFactory(const OperandFactory &rhs) = delete;//copy constructor
         OperandFactory &operator=(const OperandFactory &rhs) = delete;//copy assignment
+        OperandFactory(OperandFactory &&rhs) = delete;//move constructor
+        OperandFactory &operator=(OperandFactory &&rhs) = delete;//move assignment
         ~OperandFactory();//Destructor
 
 
