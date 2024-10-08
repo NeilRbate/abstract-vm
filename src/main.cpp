@@ -16,10 +16,11 @@ int main(int argc, char **argv) {
 
     OperandFactory factory;
 
-    auto a = factory.createOperand(eOperandType::Int8, "42");
+    std::unique_ptr<IOperand const> a(factory.createOperand(eOperandType::Int8, "42"));
 
-    std::cout << "get precision -> "<< a->getPrecision() << std::endl;
-    std::cout << "getValue -> "<< a->toString() << std::endl;
+
+    std::cout << "getValue -> "<< a.get()->toString() << std::endl;
+    std::cout << "get precision -> "<< a.get()->getPrecision() << std::endl;
     
 
     return 0;
