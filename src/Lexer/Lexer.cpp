@@ -22,7 +22,7 @@ Lexer &Lexer::operator=(Lexer const &rhs)
 
 /* Get */
 std::vector<std::string> Lexer::getData() const { return _data; }
-std::map<Token, std::string> Lexer::getMdata() const { return _mdata; }
+std::vector<std::tuple<Token, std::string>> Lexer::getMdata() const { return _mdata; }
 
 /* Private methods */
 
@@ -115,12 +115,10 @@ void Lexer::syntaxAnalysis()
         auto v = extractToken(elem);
 
         if (std::get<0>(v) != Invalid) {
-            _mdata.insert({std::get<0>(v), std::get<1>(v)});
+            _mdata.push_back(v);
         }
         else 
             std::cerr << "Invalid instruction : " << elem << std::endl;
-
-
     }
     
 }

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/abstarct-vm.hpp"
 
 
@@ -8,8 +7,8 @@ int main(int argc, char **argv) {
         std::cout << "STDIN mode" << std::endl;
     } else if (argc == 2) {
         FileParse file(argv[1]);
-        Lexer   Lexer(file.getData());
-        //std::cout << file;
+        Lexer   lexer(file.getData());
+        Execute exec(lexer.getMdata());
     } else {
         std::cerr << "Invalid arguments" << std::endl;
         return 1;

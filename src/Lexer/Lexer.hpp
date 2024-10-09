@@ -33,13 +33,13 @@ class Lexer {
 
         /* Get */
         std::vector<std::string> getData() const;
-        std::map<Token, std::string> getMdata() const;
+        std::vector<std::tuple<Token, std::string>> getMdata() const;
 
     private:
 
         /* Declaration */
         std::vector<std::string> _data;
-        std::map<Token, std::string> _mdata;
+        std::vector<std::tuple<Token, std::string>> _mdata;
 
         /* Private methods */
         void syntaxAnalysis();
