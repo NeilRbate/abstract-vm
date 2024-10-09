@@ -1,3 +1,4 @@
+#pragma once
 #include "IOperand.hpp"
 #include "OperandFactory.hpp"
 #include "eOperandType.h"
@@ -7,8 +8,8 @@
 #include <limits>
 #include <memory>
 #include <cmath>
+#include <stdexcept>
 
-#pragma once
 
 template <typename T>
 class TOperand : public IOperand {
@@ -33,8 +34,6 @@ public:
     /* Coplien */
     TOperand(TOperand const & rhs) { *this = rhs; };// copy constructor
     TOperand & operator=(TOperand const & rhs) { return factory.createOperand(rhs.getType(), rhs.toString()); };// copy assignment
-    TOperand(TOperand && rhs) { *this = std::move(rhs); };// move constructor
-    TOperand & operator=(TOperand && rhs) { return factory.createOperand(rhs.getType(), rhs.toString()); };// move assignment
 
 
     //Virtual method from IOperand implementation
@@ -79,9 +78,9 @@ public:
     IOperand const *operator/(IOperand const &rhs) const {
 
         if (std::stod(this->toString()) == 0) {
-            throw DivisionByZeroException();
+            throw DivisionByZeroException("");
         } else if (std::stod(rhs.toString()) == 0) {
-            throw DivisionByZeroException();
+            throw DivisionByZeroException("");
         }
 
         double result = std::stod(this->toString()) / std::stod(rhs.toString());
@@ -97,9 +96,9 @@ public:
     IOperand const *operator%(IOperand const &rhs) const {
 
         if (std::stod(this->toString()) == 0) {
-            throw ModuloByZeroException();
+            throw ModuloByZeroException("");
         } else if (std::stod(rhs.toString()) == 0) {
-            throw ModuloByZeroException();
+            throw ModuloByZeroException("");
         }
 
         double result = std::fmod(std::stod(this->toString()), std::stod(rhs.toString()));
@@ -117,32 +116,29 @@ public:
 
     /* Exception */ 
 
-    class OverflowException : public std::exception {
+    class CustomException : public std::runtime_error {
         public:
-            virtual const char *what() const throw() {
-                return "Overflow Exception";
-            }
+            explicit CustomException(const std::string &msg) : std::runtime_error(msg) {}
     };
 
-    class UnderflowException : public std::exception {
+    class OverflowException : public CustomException {
         public:
-            virtual const char *what() const throw() {
-                return "Underflow Exception";
-            }
+            explicit OverflowException(const std::string &msg) : CustomException("Overflow on value : " + msg) {}
     };
 
-    class DivisionByZeroException : public std::exception {
+    class UnderflowException : public CustomException {
         public:
-            virtual const char *what() const throw() {
-                return "Division by zero Exception";
-            }
+            explicit UnderflowException(const std::string &msg) : CustomException("Underflow on value : " + msg) {}
     };
 
-    class ModuloByZeroException : public std::exception {
+    class DivisionByZeroException : public CustomException {
         public:
-            virtual const char *what() const throw() {
-                return "Modulo by zero Exception";
-            }
+            explicit DivisionByZeroException(const std::string &msg) : CustomException("Division by zero") {}
+    };
+
+    class ModuloByZeroException : public CustomException {
+        public:
+            explicit ModuloByZeroException(const std::string &msg) : CustomException("Modulo by zero") {}
     };
 
 };

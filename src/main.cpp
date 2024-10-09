@@ -8,7 +8,8 @@ int main(int argc, char **argv) {
         std::cout << "STDIN mode" << std::endl;
     } else if (argc == 2) {
         FileParse file(argv[1]);
-        std::cout << file;
+        Lexer   Lexer(file.getData());
+        //std::cout << file;
     } else {
         std::cerr << "Invalid arguments" << std::endl;
         return 1;
@@ -16,6 +17,7 @@ int main(int argc, char **argv) {
 
     OperandFactory factory;
 
+/*
     try
     {
         std::unique_ptr<IOperand const> a(factory.createOperand(eOperandType::Int8, "0"));
@@ -29,7 +31,7 @@ int main(int argc, char **argv) {
         std::cerr << e.what() << '\n';
     }
     
-
+*/
 
 
     //std::unique_ptr<IOperand const> c (a.get()->operator+(*b.get()));

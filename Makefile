@@ -4,7 +4,8 @@ TARGET=abstarct_vm
 SRC=src/main.cpp \
 	src/FileParse/FileParse.cpp \
 	src/Operand/OperandFactory.cpp \
-	src/Operand/Operand.cpp
+	src/Operand/Operand.cpp \
+	src/Lexer/Lexer.cpp
 
 OBJ=${SRC:.cpp=.o}
 

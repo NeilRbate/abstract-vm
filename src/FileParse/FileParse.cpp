@@ -6,16 +6,15 @@
 /* Constructor */
 FileParse::FileParse(const std::string &filename) {
 
-    // Check if filename is empty
-    if (filename.empty()) { throw std::invalid_argument("Filename is empty"); }
-
-    this->_filename = filename;
-
-    // Read file
     try {
+        // Check if filename is empty
+        if (filename.empty()) { throw EmptyFilenameException(filename); }
 
+        this->_filename = filename;
+
+        // Read file
         std::ifstream   filecontent(filename);
-        if (!filecontent.is_open()) { throw std::runtime_error("Could not open file"); }
+        if (!filecontent.is_open()) { throw OpenFailedException(filename); }
 
         std::string line;
 
@@ -25,8 +24,10 @@ FileParse::FileParse(const std::string &filename) {
         }
 
         filecontent.close();
+
+        
     } 
-    catch(const std::exception& e) {
+    catch(const CustomException &e) {
 
         std::cerr << e.what() << '\n';
         exit(EXIT_FAILURE);
