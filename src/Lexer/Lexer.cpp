@@ -57,7 +57,7 @@ std::tuple<Token, std::string>    isValidType(const std::string &str, Token t)
 
     std::string ret = vec[0] + "_" + vec[1];
 
-    return std::make_tuple(t, str);
+    return std::make_tuple(t, ret);
 }
 
 std::tuple<Token, std::string> Lexer::extractToken(const std::string &str) const

@@ -1,6 +1,8 @@
 #pragma once
 #include <array> 
 #include <memory>
+#include <iostream>
+#include <stdexcept>
 #include "IOperand.hpp"
 
 #pragma once
@@ -32,4 +34,19 @@ class OperandFactory {
 
 
         IOperand const *createOperand( eOperandType type, std::string const & value ) const;
+
+        class CustomException : public std::runtime_error {
+        public:
+            explicit CustomException(const std::string &msg) : std::runtime_error(msg) {}
+        };
+
+        class OverflowException : public CustomException {
+            public:
+                explicit OverflowException(const std::string &msg) : CustomException("Overflow on value : " + msg) {}
+        };
+
+        class UnderflowException : public CustomException {
+            public:
+                explicit UnderflowException(const std::string &msg) : CustomException("Underflow on value : " + msg) {}
+        };
 };
