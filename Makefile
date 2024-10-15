@@ -6,7 +6,8 @@ SRC=src/main.cpp \
 	src/Operand/OperandFactory.cpp \
 	src/Operand/Operand.cpp \
 	src/Lexer/Lexer.cpp \
-	src/Execute/Execute.cpp
+	src/Execute/Execute.cpp \
+	src/UserInput/UserInput.cpp
 
 OBJ=${SRC:.cpp=.o}
 

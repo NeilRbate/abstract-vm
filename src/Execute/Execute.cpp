@@ -32,7 +32,6 @@ void Execute::buildStack()
 {
     for (auto &item : _mData)
     {
-        std::cout << "GET0 " << std::get<0>(item) << " GET1 " <<std::get<1>(item) << std::endl;
         switch (std::get<0>(item))
         {
             case Push: push(std::get<1>(item)); break;
@@ -112,12 +111,15 @@ void Execute::assert(std::string value)
     for (std::string line; std::getline(stream, line, '_');)
         temp.push_back(line);
 
-    auto type = findOperandType(temp[0]);
-    
-    if(_stack.top()->getType() != type)
+    auto opType = findOperandType(temp[0]);
+    auto stackType = _stack.top()->getType();
+
+
+    if(opType != stackType)
         throw Execute::BadAssert("Assert:" + value + " bad type");
-    if(_stack.top()->toString() != temp[1])
-        throw Execute::BadAssert("Assert: " + value + " bad type");
+
+    if(std::stod(_stack.top()->toString()) != std::stod(temp[1]))
+        throw Execute::BadAssert("Assert: " + value + " bad value");
 
 }
 

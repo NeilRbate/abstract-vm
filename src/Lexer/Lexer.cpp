@@ -6,7 +6,12 @@
 Lexer::Lexer(const std::vector<std::string> &data)
 {
     this->_data = data;
-    syntaxAnalysis();
+    try {
+        syntaxAnalysis();
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 Lexer::~Lexer() {}
@@ -111,12 +116,13 @@ void Lexer::syntaxAnalysis()
         if (pos != std::string::npos)
             elem.erase(elem.begin() + pos, elem.end());
 
+        if (elem.empty())
+            continue;
         //Insert value in map if it's real value
-        auto v = extractToken(elem);
+        auto [tok, str] = extractToken(elem);
 
-        if (std::get<0>(v) != Invalid) {
-            _mdata.push_back(v);
-        }
+        if (tok != Invalid)
+            _mdata.push_back(std::make_tuple<>(tok, str));
         else 
             std::cerr << "Invalid instruction : " << elem << std::endl;
     }

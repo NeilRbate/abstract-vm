@@ -18,16 +18,17 @@ FileParse::FileParse(const std::string &filename) {
 
         std::string line;
 
-        while(getline(filecontent, line)) { 
+        while(getline(filecontent, line)) {
+            if(line.empty()) {
+                line.clear();
+                continue;
+            }
             _data.push_back(line);
             line.clear();
         }
 
         filecontent.close();
-
-        
-    } 
-    catch(const CustomException &e) {
+    }  catch(const CustomException &e) {
 
         std::cerr << e.what() << '\n';
         exit(EXIT_FAILURE);
