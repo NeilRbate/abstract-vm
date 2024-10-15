@@ -1,5 +1,5 @@
 GXX=g++
-FLAGS=-std=c++20 -Wall -Wextra -Werror -pedantic -g
+CXXFLAGS=-std=c++20 -Wall -Wextra -Werror -pedantic
 TARGET=abstarct_vm
 SRC=src/main.cpp \
 	src/FileParse/FileParse.cpp \
@@ -11,13 +11,15 @@ SRC=src/main.cpp \
 
 OBJ=${SRC:.cpp=.o}
 
+
 .c.o:
-	$(GXX) $(FLAGS) -c $< -o $@
+	${GXX} ${CXXFLAGS} -c $< -o ${<:.c=.o}
 
-$(TARGET): $(OBJ)
-	$(GXX) $(FLAGS) -o $@ $^
+${TARGET}: ${OBJ}
+	${GXX} ${CXXFLAGS} -o ${TARGET} ${OBJ}
 
-all: $(OBJ) $(TARGET)
+all: ${OBJ} ${TARGET}
+
 
 clean:
 	rm -f $(OBJ)

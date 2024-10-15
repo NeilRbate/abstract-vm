@@ -16,9 +16,9 @@ class TOperand : public IOperand {
 private:
 
     T _value;
-    std::string v;
     eOperandType _type;
     ePrecision _precision;
+    std::string v;
     OperandFactory  factory;
 
 public:
@@ -133,12 +133,12 @@ public:
 
     class DivisionByZeroException : public CustomException {
         public:
-            explicit DivisionByZeroException(const std::string &msg) : CustomException("Division by zero") {}
+            explicit DivisionByZeroException(const std::string &msg) : CustomException("Division by zero" + msg) {}
     };
 
     class ModuloByZeroException : public CustomException {
         public:
-            explicit ModuloByZeroException(const std::string &msg) : CustomException("Modulo by zero") {}
+            explicit ModuloByZeroException(const std::string &msg) : CustomException("Modulo by zero" + msg) {}
     };
 
 };

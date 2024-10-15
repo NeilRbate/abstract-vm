@@ -31,7 +31,7 @@ public:
 
     class EmptyFilenameException : public CustomException {
         public:
-            explicit EmptyFilenameException(const std::string &message) : CustomException("Empty filename"){}
+            explicit EmptyFilenameException(const std::string &message) : CustomException("Empty filename" + message){}
     };
 
     class OpenFailedException : public CustomException {
